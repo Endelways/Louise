@@ -1,10 +1,10 @@
-module.exports = async (bot, msg, cmd, args) => {
+module.exports = async (bot, db, msg, cmd, args) => {
     let botMember = await msg.guild.members.fetch(bot.user.id);
     if(botMember.permissions.has(cmd.info.clientPerms))
     {
-        if(msg.member.permissions.has(cmd.info.userPerms))
+        if(msg.member.id == msg.guild.ownerId || (msg.member.permissions.has(cmd.info.userPerms) && cmd.info.ownerOnly == false))
         {
-            require('./cooldown')(bot, msg, cmd, args);
+            require('./cooldown')(bot, db, msg, cmd, args);
         }
         else
         {

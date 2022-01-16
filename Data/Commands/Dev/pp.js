@@ -1,4 +1,4 @@
-module.exports.run = async (bot, msg, args) => {
+module.exports.run = async (bot, db, msg, args) => {
 	await msg.channel.send('Hello my dear friend ' + msg.author.username);
 }
 
@@ -11,5 +11,5 @@ module.exports.info = {
     userPerms : [],
     clientPerms : ["SEND_MESSAGES"],
     aliases : [],
-    enable : true
+    enabled : true
 }

@@ -1,11 +1,11 @@
-const Guild = require('../Schemas/guild');
-
-module.exports = async function getGuildData (gld) 
+module.exports = async (connection, guild) =>
 {
-	let res = await Guild.findById(gld.id).exec();
-	if(res == null)
+	const [rows, fields] = await connection.execute(`SELECT * FROM guilds WHERE id = ${guild.id}`);
+	if(rows.length < 1)
 	{
-		res = require('./createGuildData')(gld);
+		console.log("Guild was not found in the database, a new entry will be created")
+		return await require('./createGuildData')(connection, guild);		
 	}
-	return res;
+	return rows;
+	
 }

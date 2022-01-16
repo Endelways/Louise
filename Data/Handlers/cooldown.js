@@ -1,4 +1,4 @@
-module.exports = async (bot, msg, cmd, args) => {
+module.exports = async (bot, db, msg, cmd, args) => {
     let obj = `${msg.guild.id} : ${msg.member.id} : ${cmd.info.name}`;
     if(!bot.cooldowns.has(obj))
     {
@@ -9,7 +9,7 @@ module.exports = async (bot, msg, cmd, args) => {
                 bot.cooldowns.delete(obj)
             }, cmd.info.cooldown));
         }
-        cmd.run(bot, msg, args);
+        cmd.run(bot, db, msg, args);
     }
     else 
     {

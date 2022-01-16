@@ -1,11 +1,5 @@
-const Guild = require('../Schemas/guild');
-
-module.exports = async function createGuildData(gld)
+module.exports = async (connection, guild) =>
 {
-	const guild = new Guild({
-		_id : gld.id,
-		prefix : '!',
-	});
-	guild.save();
-	return guild;
+	const res = await connection.execute(`INSERT INTO guilds(id, title, prefix, xp_formula) VALUES(?,?,?, ?)`, [ guild.id, guild.name, "!", "5 * 2^(x-1)"]);
+	return require('./getGuildData')(connection, guild);
 }
